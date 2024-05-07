@@ -94,7 +94,8 @@ function App() {
                   backgroundColor: "#543FD3",
                   color: "white",
                   fontFamily: "RubikReg"
-                }
+                },
+                id:"copys"
               })
             }}>
               <Toaster
