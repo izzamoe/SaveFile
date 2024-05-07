@@ -22,7 +22,7 @@ body{
 
 .main{
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
    align-items: center;
 }
 
@@ -90,13 +90,27 @@ body{
     border: 1.5px solid #543FD3 ;
 }
 
-.url{
+.url-container{
+    padding: 1rem 1.5rem;
+    border-radius: 0.8rem;
+    background-color: #EEECFB;
     font-family: 'RubikReg';
     display: flex;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.7rem;
+    cursor: pointer;
+}
+
+.url-container p {
+    margin: 0px;
+    font-family: "RubikBld";
+    color: #543FD3;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--success {
+    background-color: #543FD3;
 }
 
 #copy{
-    cursor: pointer;
-    width: 1rem;
+    width: 1.2rem;
 }

@@ -13,9 +13,11 @@ function App() {
   const [fileName, setFileName] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0); // state baru untuk menampung persentase upload
+  const [isEmpty,setIsEmpty] = useState(true)
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setFileName("Uploading")
     setIsSubmitting(true);
     const URL_UPLOAD = "https://r2api.rezultroy.workers.dev/";
     const formData = new FormData();
@@ -37,17 +39,22 @@ function App() {
       if (xhr.status === 200) {
         const json = JSON.parse(xhr.response);
         setRespon(json);
+        setFileName("Select file to upload")
         setIsSubmitting(false);
         setUploadProgress(0); // reset persentase upload
       }
     };
 
     xhr.send(formData);
+    if(!Respon){
+      setIsEmpty(true)
+    }
   };
 
   const handleFileChange = (event) => {
+    setIsEmpty(false)
     setFile(event.target.files[0]);
-
+    setRespon(null)
     setFileName(event.target.files[0].name)
   };
 
@@ -62,7 +69,7 @@ function App() {
             <div className="file-up">
                 <label htmlFor="fileUp">
                 <div className="files-container">
-               {file ?  <img src={fileIcon} alt="file" /> :  <img src={up} alt="up" />}
+               {file ? isEmpty ?  <img src={up} alt="up" /> :  <img src={fileIcon} alt="file" />: <img src={up} alt="up" /> }
             </div>
                     {file? <p>{fileName}</p> :<p>Select file to upload</p>}
                 </label>
@@ -74,18 +81,18 @@ function App() {
             />
             </div>
             <br />
-            {file? Respon? null: <button type="submit" id="submit" disabled={isSubmitting}>
+            {file? isEmpty? null: <button type="submit" id="submit" disabled={isSubmitting}>
               Submit
             </button>: null}
             {isSubmitting && <ProgressBar completed={uploadProgress} />}
           </form>
           {Respon && (
-            <div className="url">
-              <p>URL: {Respon.hello}</p>
-              <img id="copy" src={copy} onClick={() => {
-                  navigator.clipboard.writeText(Respon.hello);
-                  alert("Url copied to clipboard")
-                }} alt="copy" />
+            <div className="url-container" onClick={() => {
+              navigator.clipboard.writeText(Respon.hello);
+              alert("Url copied to clipboard")
+            }}>
+              <p id="url">{Respon.hello}</p>
+              <img id="copy" src={copy} alt="copy" />
             </div>
           )}
         </div>
