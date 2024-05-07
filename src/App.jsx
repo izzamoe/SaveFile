@@ -101,7 +101,7 @@ function App() {
                 position="top-left"
               />
               <p id="url">{Respon.hello}</p>
-              <img id="copy" src={copy} alt="copy" />
+              <img id="copy" src={copy} alt="copys" />
             </div>
           )}
         </div>
