@@ -5,7 +5,7 @@ import fileIcon from './assets/file.svg'
 import up from './assets/up.svg'
 import copy from './assets/copy.svg'
 import ProgressBar from "./progress";
-
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -89,8 +89,17 @@ function App() {
           {Respon && (
             <div className="url-container" onClick={() => {
               navigator.clipboard.writeText(Respon.hello);
-              alert("Url copied to clipboard")
+              toast.success("Url copied to clipboard",{
+                style:{
+                  backgroundColor: "#543FD3",
+                  color: "white",
+                  fontFamily: "RubikReg"
+                }
+              })
             }}>
+              <Toaster
+                position="top-left"
+              />
               <p id="url">{Respon.hello}</p>
               <img id="copy" src={copy} alt="copy" />
             </div>
