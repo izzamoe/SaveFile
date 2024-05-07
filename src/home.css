@@ -1,0 +1,102 @@
+
+@font-face{
+    font-family: "RubikReg";
+    src:local("RubikRegular"),
+    url('./assets/fonts/RubikRegular.ttf') 
+}
+
+@font-face{
+    font-family: "RubikBld";
+    src:local("RubikBold"),
+    url('./assets/fonts/RubikBold.ttf') 
+}
+
+p{
+    font-family: "RubikReg";
+}
+
+body{
+    margin: 0px;
+    overflow: hidden;
+}
+
+.main{
+    display: flex;
+    flex-direction: row;
+   align-items: center;
+}
+
+.logo img{
+    height: 100vh;
+}
+
+.files-container{
+    display: flex;
+    justify-content: center;
+    width: 6.5rem;
+    height: 6.5rem;
+    align-items: center;
+    background-color: #EEECFB;
+    border-radius: 100%;
+}
+
+.file-up label{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-direction: column  ;
+    gap: 0.2rem;
+}
+
+.file-up label p {
+    margin-bottom: 0px;
+}
+
+.file-up img{
+    width: 2rem;
+    cursor: pointer;
+}
+
+.file-up input{
+    display: none;
+}
+
+.forms{ 
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+#submit{
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-family: 'RubikBld';
+    color: #ffffff;
+    border: none;
+    background: #543FD3;
+    padding: 13px 80px 13px 80px;
+    text-decoration: none;
+    transition: all 0.2s ease-in;
+    border: 1.5px solid transparent;
+    margin-bottom: 0.5rem;
+}
+
+#submit:hover{
+    color: #543FD3;
+    background-color: #EEECFB;
+    border: 1.5px solid #543FD3 ;
+}
+
+.url{
+    font-family: 'RubikReg';
+    display: flex;
+    gap: 0.5rem;
+}
+
+#copy{
+    cursor: pointer;
+    width: 1rem;
+}
