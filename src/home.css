@@ -103,6 +103,7 @@ body{
 
 .url-container p {
     margin: 0px;
+    width: 100%;
     font-family: "RubikBld";
     color: #543FD3;
 }
@@ -113,4 +114,30 @@ body{
 
 #copy{
     width: 1.2rem;
+}
+
+
+@media only screen and (max-width: 768px){
+    .logo img{
+        display: none;
+    }
+
+    .forms{
+        height: 100vh;
+    }
+
+    .url-container {
+        width: 70%;
+        flex-direction: column;
+        word-wrap: break-word;
+    }
+
+    .url-container p {
+        font-size: 1rem;
+    }
+
+    .files-container {
+        width: 8rem;
+        height: 8rem;
+    }
 }
