@@ -1,11 +1,13 @@
 import { useState } from "react";
 import logo from "./assets/logo.png";
 import "./home.css";
-import fileIcon from './assets/file.svg'
-import up from './assets/up.svg'
-import copy from './assets/copy.svg'
+import fileIcon from "./assets/file.svg";
+import up from "./assets/up.svg";
+import copy from "./assets/copy.svg";
 import ProgressBar from "./progress";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
+import element from './assets/element.svg';
+import open from './assets/open.svg'
 
 function App() {
   const [file, setFile] = useState(null);
@@ -13,11 +15,11 @@ function App() {
   const [fileName, setFileName] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0); // state baru untuk menampung persentase upload
-  const [isEmpty,setIsEmpty] = useState(true)
+  const [isEmpty, setIsEmpty] = useState(true);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setFileName("Uploading")
+    setFileName("Uploading");
     setIsSubmitting(true);
     const URL_UPLOAD = "https://r2api.rezultroy.workers.dev/";
     const formData = new FormData();
@@ -39,27 +41,29 @@ function App() {
       if (xhr.status === 200) {
         const json = JSON.parse(xhr.response);
         setRespon(json);
-        setFileName("Select file to upload")
+        setFileName("Drop or Select file to upload");
         setIsSubmitting(false);
         setUploadProgress(0); // reset persentase upload
       }
     };
 
     xhr.send(formData);
-    if(!Respon){
-      setIsEmpty(true)
+    if (!Respon) {
+      setIsEmpty(true);
     }
   };
 
   const handleFileChange = (event) => {
-    setIsEmpty(false)
+    setIsEmpty(false);
     setFile(event.target.files[0]);
-    setRespon(null)
-    setFileName(event.target.files[0].name)
+    setRespon(null);
+    setFileName(event.target.files[0].name);
   };
 
   return (
     <>
+      <img id="elemen1" src={element} alt="element" />
+      <img id="elemen2" src={element} alt="element" />
       <div className="main">
         <div className="logo">
           <img src={logo} alt="savefile" />
@@ -67,42 +71,63 @@ function App() {
         <div className="forms">
           <form onSubmit={handleSubmit}>
             <div className="file-up">
-                <label htmlFor="fileUp">
+              <label htmlFor="fileUp">
                 <div className="files-container">
-               {file ? isEmpty ?  <img src={up} alt="up" /> :  <img src={fileIcon} alt="file" />: <img src={up} alt="up" /> }
-            </div>
-                    {file? <p>{fileName}</p> :<p>Select file to upload</p>}
-                </label>
-            <input
+                  {file ? (
+                    isEmpty ? (
+                      <img src={up} alt="up" />
+                    ) : (
+                      <img src={fileIcon} alt="file" />
+                    )
+                  ) : (
+                    <img src={up} alt="up" />
+                  )}
+                  {file ? (
+                    <p>{fileName}</p>
+                  ) : (
+                    <p>Drop or Select file to upload</p>
+                  )}
+                </div>
+              </label>
+              <input
                 id="fileUp"
-              type="file"
-              onChange={handleFileChange}
-              disabled={isSubmitting}
-            />
+                type="file"
+                onChange={handleFileChange}
+                disabled={isSubmitting}
+              />
             </div>
             <br />
-            {file? isEmpty? null: <button type="submit" id="submit" disabled={isSubmitting}>
-              Submit
-            </button>: null}
+            {file ? (
+              isEmpty ? null : (
+                <button type="submit" id="submit" disabled={isSubmitting}>
+                  Submit
+                </button>
+              )
+            ) : null}
             {isSubmitting && <ProgressBar completed={uploadProgress} />}
           </form>
           {Respon && (
-            <div className="url-container" onClick={() => {
-              navigator.clipboard.writeText(Respon.hello);
-              toast.success("Url copied to clipboard",{
-                style:{
-                  backgroundColor: "#543FD3",
-                  color: "white",
-                  fontFamily: "RubikReg"
-                },
-                id:"copys"
-              })
-            }}>
-              <Toaster
-                position="top-left"
-              />
+            <div
+              className="url-container"
+            >
+              <Toaster position="top-left" />
               <p id="url">{Respon.hello}</p>
-              <img id="copy" src={copy} alt="copys" />
+              <div>
+              <img id="open" src={open} alt="open" onClick={()=>{
+                window.open(Respon.hello, "_blank")
+              }} />
+              <img id="copy" src={copy} alt="copy" onClick={() => {
+                navigator.clipboard.writeText(Respon.hello);
+                toast.success("Url copied to clipboard", {
+                  style: {
+                    backgroundColor: "#543FD3",
+                    color: "white",
+                    fontFamily: "RubikReg",
+                  },
+                  id: "copys",
+                });
+              }} />
+              </div>
             </div>
           )}
         </div>

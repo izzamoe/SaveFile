@@ -11,6 +11,16 @@
     url('./assets/fonts/RubikBold.ttf') 
 }
 
+#elemen1{
+    display: none;
+}
+
+#elemen2{
+    display: none;
+}
+
+
+
 p{
     font-family: "RubikReg";
 }
@@ -33,11 +43,15 @@ body{
 .files-container{
     display: flex;
     justify-content: center;
-    width: 6.5rem;
-    height: 6.5rem;
+    flex-direction: column;
+    width: 20rem;
+    height: 10rem;
+    gap: 0.5rem;
     align-items: center;
     background-color: #EEECFB;
-    border-radius: 100%;
+    border-radius: 0.8rem;
+    border: 1px dashed #543FD3;
+
 }
 
 .file-up label{
@@ -76,6 +90,7 @@ body{
     font-family: 'RubikBld';
     color: #ffffff;
     border: none;
+    width: 100%;
     background: #543FD3;
     padding: 13px 80px 13px 80px;
     text-decoration: none;
@@ -96,14 +111,17 @@ body{
     background-color: #EEECFB;
     font-family: 'RubikReg';
     display: flex;
+    max-width: 30rem;
     align-items: center;
-    gap: 0.7rem;
     cursor: pointer;
+    gap: 0.7rem;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .url-container p {
+    word-break: break-all;
     margin: 0px;
-    width: 100%;
     font-family: "RubikBld";
     color: #543FD3;
 }
@@ -116,6 +134,10 @@ body{
     width: 1.2rem;
 }
 
+#open{
+    width: 1.35rem;
+    margin-right: 0.5rem;
+}
 
 @media only screen and (max-width: 768px){
     .logo img{
@@ -127,7 +149,7 @@ body{
     }
 
     .url-container {
-        width: 70%;
+        width: 17.2rem;
         flex-direction: column;
         word-wrap: break-word;
     }
@@ -137,7 +159,27 @@ body{
     }
 
     .files-container {
-        width: 8rem;
-        height: 8rem;
+        width: 18rem;
+        padding: 0rem 1rem;
+    }
+
+    #elemen1{
+        display: block;
+        position: absolute;
+        top: -15rem;
+        right: -13rem;
+        width: 30rem;
+        z-index: -1;
+        opacity: 0.5;
+    }
+
+    #elemen2{
+        display: block;
+        position: absolute;
+        bottom: -12rem;
+        left: -15rem;
+        width: 30rem;
+        z-index: -1;
+        opacity: 0.5;
     }
 }
