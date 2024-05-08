@@ -140,12 +140,16 @@ body{
 }
 
 @media only screen and (max-width: 768px){
+
     .logo img{
         display: none;
     }
 
     .forms{
         height: 100vh;
+        width: 100vw;
+        position: relative;
+        overflow: hidden;
     }
 
     .url-container {
@@ -164,11 +168,11 @@ body{
     }
 
     #elemen1{
-        display: block;
+        display: inline;
         position: absolute;
         top: -15rem;
         right: -13rem;
-        width: 30rem;
+        width: 35rem;
         z-index: -1;
         opacity: 0.5;
     }

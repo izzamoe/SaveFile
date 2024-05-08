@@ -62,13 +62,13 @@ function App() {
 
   return (
     <>
-      <img id="elemen1" src={element} alt="element" />
-      <img id="elemen2" src={element} alt="element" />
       <div className="main">
         <div className="logo">
           <img src={logo} alt="savefile" />
         </div>
         <div className="forms">
+        <img id="elemen1" src={element} alt="element" />
+      <img id="elemen2" src={element} alt="element" />
           <form onSubmit={handleSubmit}>
             <div className="file-up">
               <label htmlFor="fileUp">
