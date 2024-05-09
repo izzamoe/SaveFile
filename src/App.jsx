@@ -94,9 +94,9 @@ function App() {
             <div className="file-up">
               <label htmlFor="fileUp">
                 <div className={isDrop? "files-container-drop":"files-container"}
-                  onDragOver={handleDragOver}
-                  onDragLeave={handleDragLeave}
-                  onDrop={handleDrop}
+                  onDragOver={isSubmitting? null : handleDragOver}
+                  onDragLeave={isSubmitting ? null : handleDragLeave}
+                  onDrop={isSubmitting ? null : handleDragLeave}
                 >
                   {file ? isDrop ?  <img id="drop" src={drop} alt="drop" /> : (
                     isEmpty ? (
@@ -107,7 +107,7 @@ function App() {
                   ) : isDrop ?  <img id="drop" src={drop} alt="drop" /> : (
                     <img src={up} alt="up" />
                   )}
-                  {file ? isDrop? <p>Release here</p> : (
+                  {file ?  (
                     <p  dangerouslySetInnerHTML={{__html: fileName}}></p>
                   ) : isDrop? <p>Release here</p> : (
                     <p><b>Choose file</b> or drag it here</p>
