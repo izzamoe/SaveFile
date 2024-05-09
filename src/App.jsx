@@ -7,8 +7,8 @@ import copy from "./assets/copy.svg";
 import ProgressBar from "./progress";
 import toast, { Toaster } from "react-hot-toast";
 import element from './assets/element.svg';
-import open from './assets/open.svg'
-import drop from './assets/drop.svg'
+import open from './assets/open.svg';
+import drop from './assets/drop.svg';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -64,17 +64,17 @@ function App() {
 
   const handleDragOver = (event) =>{
     event.preventDefault();
-    setIsDrop(true)
+    setIsDrop(true);
   }
 
   const handleDragLeave = (event) =>{
     event.preventDefault();
-    setIsDrop(false)
+    setIsDrop(false);
   } 
 
   const handleDrop = (event) =>{
     event.preventDefault();
-    setIsDrop(false)
+    setIsDrop(false);
     setIsEmpty(false);
     setFile(event.dataTransfer.files[0]);
     setRespon(null);
@@ -94,11 +94,9 @@ function App() {
             <div className="file-up">
               <label htmlFor="fileUp">
                 <div className={isDrop? "files-container-drop":"files-container"}
-
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
                   onDrop={handleDrop}
-
                 >
                   {file ? isDrop ?  <img id="drop" src={drop} alt="drop" /> : (
                     isEmpty ? (
@@ -106,12 +104,12 @@ function App() {
                     ) : (
                       <img src={fileIcon} alt="file" />
                     )
-                  ) : (
+                  ) : isDrop ?  <img id="drop" src={drop} alt="drop" /> : (
                     <img src={up} alt="up" />
                   )}
-                  {file ? (
+                  {file ? isDrop? <p>Release here</p> : (
                     <p  dangerouslySetInnerHTML={{__html: fileName}}></p>
-                  ) : (
+                  ) : isDrop? <p>Release here</p> : (
                     <p><b>Choose file</b> or drag it here</p>
                   )}
                 </div>
@@ -137,7 +135,7 @@ function App() {
             <div
               className="url-container"
             >
-              <Toaster position="top-left" />
+              <Toaster position="top-middle" />
               <p id="url">{Respon.hello}</p>
               <div>
               <img id="open" src={open} alt="open" onClick={()=>{
