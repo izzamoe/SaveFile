@@ -8,6 +8,7 @@ import ProgressBar from "./progress";
 import toast, { Toaster } from "react-hot-toast";
 import element from './assets/element.svg';
 import open from './assets/open.svg'
+import drop from './assets/drop.svg'
 
 function App() {
   const [file, setFile] = useState(null);
@@ -16,6 +17,7 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0); // state baru untuk menampung persentase upload
   const [isEmpty, setIsEmpty] = useState(true);
+  const [isDrop,setIsDrop] = useState(false)
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,7 +43,7 @@ function App() {
       if (xhr.status === 200) {
         const json = JSON.parse(xhr.response);
         setRespon(json);
-        setFileName("Drop or Select file to upload");
+        setFileName(`<b>Choose file</b> or drag it here`);
         setIsSubmitting(false);
         setUploadProgress(0); // reset persentase upload
       }
@@ -60,6 +62,25 @@ function App() {
     setFileName(event.target.files[0].name);
   };
 
+  const handleDragOver = (event) =>{
+    event.preventDefault();
+    setIsDrop(true)
+  }
+
+  const handleDragLeave = (event) =>{
+    event.preventDefault();
+    setIsDrop(false)
+  } 
+
+  const handleDrop = (event) =>{
+    event.preventDefault();
+    setIsDrop(false)
+    setIsEmpty(false);
+    setFile(event.dataTransfer.files[0]);
+    setRespon(null);
+    setFileName(event.dataTransfer.files[0].name);
+  }
+
   return (
     <>
       <div className="main">
@@ -72,8 +93,14 @@ function App() {
           <form onSubmit={handleSubmit}>
             <div className="file-up">
               <label htmlFor="fileUp">
-                <div className="files-container">
-                  {file ? (
+                <div className={isDrop? "files-container-drop":"files-container"}
+
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  onDrop={handleDrop}
+
+                >
+                  {file ? isDrop ?  <img id="drop" src={drop} alt="drop" /> : (
                     isEmpty ? (
                       <img src={up} alt="up" />
                     ) : (
@@ -83,9 +110,9 @@ function App() {
                     <img src={up} alt="up" />
                   )}
                   {file ? (
-                    <p>{fileName}</p>
+                    <p  dangerouslySetInnerHTML={{__html: fileName}}></p>
                   ) : (
-                    <p>Drop or Select file to upload</p>
+                    <p><b>Choose file</b> or drag it here</p>
                   )}
                 </div>
               </label>
