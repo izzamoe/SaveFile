@@ -86,6 +86,21 @@ function App() {
     setFileName(event.dataTransfer.files[0].name);
   }
 
+  const convertSize = (size) => {
+    const units = ['bytes', 'KB', 'MB', 'GB'];
+    let unitIndex = 0;
+
+    while (size >= 1024 && unitIndex < units.length - 1) {
+        size /= 1024;
+        unitIndex++;
+    }
+
+    const sizeString = size.toFixed(2);
+    const finalSize = parseFloat(sizeString).toString();
+
+    return finalSize + ' ' + units[unitIndex];
+}
+
   return (
     <>
       <div className="main">
@@ -117,7 +132,7 @@ function App() {
                   ) : isDrop? <p>Release here</p> : (
                     <p><b>Choose file</b> or drag it here</p>
                   )}
-                  {file ? isSubmitting ? null : <p id="size">{convertSize(size)}</p> : null}
+                  {file ? isSubmitting ? null : <p id="size">{convertSize(size)}</p> : null}      
                 </div>
               </label>
               <input
