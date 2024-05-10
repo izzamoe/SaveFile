@@ -17,7 +17,8 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0); // state baru untuk menampung persentase upload
   const [isEmpty, setIsEmpty] = useState(true);
-  const [isDrop,setIsDrop] = useState(false)
+  const [isDrop,setIsDrop] = useState(false);
+  const [size,setSize] = useState(0)
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,8 +44,10 @@ function App() {
       if (xhr.status === 200) {
         const json = JSON.parse(xhr.response);
         setRespon(json);
+        setFile(null)
         setFileName(`<b>Choose file</b> or drag it here`);
         setIsSubmitting(false);
+        setSize(0);
         setUploadProgress(0); // reset persentase upload
       }
     };
@@ -59,6 +62,7 @@ function App() {
     setIsEmpty(false);
     setFile(event.target.files[0]);
     setRespon(null);
+    setSize(event.target.files[0].size);
     setFileName(event.target.files[0].name);
   };
 
@@ -76,6 +80,7 @@ function App() {
     event.preventDefault();
     setIsDrop(false);
     setIsEmpty(false);
+    setSize(event.dataTransfer.files[0].size)
     setFile(event.dataTransfer.files[0]);
     setRespon(null);
     setFileName(event.dataTransfer.files[0].name);
@@ -96,7 +101,7 @@ function App() {
                 <div className={isDrop? "files-container-drop":"files-container"}
                   onDragOver={isSubmitting? null : handleDragOver}
                   onDragLeave={isSubmitting ? null : handleDragLeave}
-                  onDrop={isSubmitting ? null : handleDragLeave}
+                  onDrop={isSubmitting ? null : handleDrop}
                 >
                   {file ? isDrop ?  <img id="drop" src={drop} alt="drop" /> : (
                     isEmpty ? (
@@ -112,6 +117,7 @@ function App() {
                   ) : isDrop? <p>Release here</p> : (
                     <p><b>Choose file</b> or drag it here</p>
                   )}
+                  {file ? isSubmitting ? null : <p id="size">{convertSize(size)}</p> : null}
                 </div>
               </label>
               <input
@@ -124,8 +130,8 @@ function App() {
             <br />
             {file ? (
               isEmpty ? null : (
-                <button type="submit" id="submit" disabled={isSubmitting}>
-                  Submit
+                <button type="submit" id="upload" disabled={isSubmitting}>
+                  Upload
                 </button>
               )
             ) : null}
@@ -135,7 +141,7 @@ function App() {
             <div
               className="url-container"
             >
-              <Toaster position="top-middle" />
+              <Toaster position="top-left" />
               <p id="url">{Respon.hello}</p>
               <div>
               <img id="open" src={open} alt="open" onClick={()=>{
