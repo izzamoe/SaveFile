@@ -181,13 +181,13 @@ function App() {
             <div
               className="url-container"
             >
-              <p id="url">{Respon.hello}</p>
+              <p id="url">{Respon.url}</p>
               <div>
               <img id="open" src={open} alt="open" onClick={()=>{
-                window.open(Respon.hello, "_blank")
+                window.open(Respon.url, "_blank")
               }} />
               <img id="copy" src={copy} alt="copy" onClick={() => {
-                navigator.clipboard.writeText(Respon.hello);
+                navigator.clipboard.writeText(Respon.url);
                 toast.success("Url copied to clipboard", {
                   style: {
                     backgroundColor: "#543FD3",
