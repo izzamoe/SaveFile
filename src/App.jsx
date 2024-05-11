@@ -1,14 +1,15 @@
 import { useState } from "react";
 import logo from "./assets/logo.png";
 import "./home.css";
-import fileIcon from "./assets/file.svg";
+import { displayIcon } from "./component/FileIcon";
 import up from "./assets/up.svg";
 import copy from "./assets/copy.svg";
-import ProgressBar from "./progress";
+import ProgressBar from "./component/progress";
 import toast, { Toaster } from "react-hot-toast";
 import element from './assets/element.svg';
 import open from './assets/open.svg';
 import drop from './assets/drop.svg';
+
 
 function App() {
   const [file, setFile] = useState(null);
@@ -19,6 +20,8 @@ function App() {
   const [isEmpty, setIsEmpty] = useState(true);
   const [isDrop,setIsDrop] = useState(false);
   const [size,setSize] = useState(0)
+  const [type,setType] = useState(null)
+  const xhr = new XMLHttpRequest();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,9 +30,8 @@ function App() {
     const URL_UPLOAD = "https://r2api.rezultroy.workers.dev/";
     const formData = new FormData();
     formData.append("file", file);
-
+    
     // menggunakan XMLHttpRequest untuk mendapatkan event progress
-    const xhr = new XMLHttpRequest();
     xhr.open("PUT", URL_UPLOAD, true);
 
     // event listener untuk progress upload
@@ -49,13 +51,19 @@ function App() {
         setIsSubmitting(false);
         setSize(0);
         setUploadProgress(0); // reset persentase upload
+        toast.success(fileName + " Successfully uploaded!", {
+          duration : 3000,
+          style: {
+            backgroundColor: "#543FD3",
+            color: "white",
+            fontFamily: "RubikReg",
+          },
+          id: "copys",
+        });
       }
     };
 
     xhr.send(formData);
-    if (!Respon) {
-      setIsEmpty(true);
-    }
   };
 
   const handleFileChange = (event) => {
@@ -64,6 +72,22 @@ function App() {
     setRespon(null);
     setSize(event.target.files[0].size);
     setFileName(event.target.files[0].name);
+
+    const typeUrl = "https://r2api.rezultroy.workers.dev/file/mime"
+    xhr.open("POST",typeUrl,true)
+    xhr.onloadend = function () {
+      if(xhr.status == 200){
+        const type = JSON.parse(xhr.response)
+        setType(type.category)
+        console.log(type)
+      }
+    }
+
+    const req={
+      "mime" : event.target.files[0].type
+    }
+
+    xhr.send(JSON.stringify(req))
   };
 
   const handleDragOver = (event) =>{
@@ -103,6 +127,7 @@ function App() {
 
   return (
     <>
+    <Toaster position="top-left" />
       <div className="main">
         <div className="logo">
           <img src={logo} alt="savefile" />
@@ -122,7 +147,7 @@ function App() {
                     isEmpty ? (
                       <img src={up} alt="up" />
                     ) : (
-                      <img src={fileIcon} alt="file" />
+                      <img src={displayIcon(type)} alt="file" />
                     )
                   ) : isDrop ?  <img id="drop" src={drop} alt="drop" /> : (
                     <img src={up} alt="up" />
@@ -144,11 +169,11 @@ function App() {
             </div>
             <br />
             {file ? (
-              isEmpty ? null : (
+              isEmpty ? null : isSubmitting? null:(
                 <button type="submit" id="upload" disabled={isSubmitting}>
                   Upload
                 </button>
-              )
+              ) 
             ) : null}
             {isSubmitting && <ProgressBar completed={uploadProgress} />}
           </form>
@@ -156,7 +181,6 @@ function App() {
             <div
               className="url-container"
             >
-              <Toaster position="top-left" />
               <p id="url">{Respon.hello}</p>
               <div>
               <img id="open" src={open} alt="open" onClick={()=>{
