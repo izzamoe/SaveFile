@@ -1,0 +1,111 @@
+
+.download-container{
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#circle{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 15%;
+}
+
+#lines{
+    top: 0;
+    position: absolute;
+    right: 0;
+    width: 25%;
+}
+
+.file-container{
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#logo{
+    background-color: #EEECFB;
+    padding: 0.8rem;
+    border-radius: 100%;
+    width: 1.2rem;
+}
+
+.ready{
+    font-size: 1.5rem;
+}
+
+.file{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    background-color: #EEECFB;
+    border-radius: 0.5rem;
+    width: 15rem;
+    padding: 0rem 2rem;
+    height: 9rem;
+    gap: 1rem;
+    border: 1.5px solid #543FD3   ;
+}
+
+#file-icon{
+    width: 2rem;
+}
+
+.file-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.file-info p{
+    margin: 0;
+}
+
+.file-info p:nth-child(2){
+    font-size: 0.8rem;
+}
+
+.download-btn{
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-family: 'RubikBld';
+    color: #ffffff;
+    border: none;
+    width: 100%;
+    background: #543FD3;
+    padding: 13px 80px 13px 80px;
+    text-decoration: none;
+    transition: all 0.2s ease-in;
+    border: 1.5px solid transparent;
+}
+
+.upload-btn{
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-family: 'RubikBld';
+    border: none;
+    width: 100%;
+    background: #EEECFB;
+    padding: 13px 80px 13px 80px;
+    text-decoration: none;
+    transition: all 0.2s ease-in;
+    border: 1.5px solid #543FD3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    color: #AEA2FF;
+}
+
+#up{
+    width: 1rem;
+}
