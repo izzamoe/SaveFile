@@ -10,13 +10,12 @@ import element from '../assets/element.svg';
 import open from '../assets/open.svg';
 import drop from '../assets/drop.svg';
 
-
 const Upload =()=> {
   const [file, setFile] = useState(null);
   const [Respon, setRespon] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0); // state baru untuk menampung persentase upload
+  const [uploadProgress, setUploadProgress] = useState(0); 
   const [isEmpty, setIsEmpty] = useState(true);
   const [isDrop,setIsDrop] = useState(false);
   const [size,setSize] = useState(0)
@@ -27,14 +26,10 @@ const Upload =()=> {
     event.preventDefault();
     setFileName("Uploading");
     setIsSubmitting(true);
-    const URL_UPLOAD = "https://r2api.rezultroy.workers.dev/";
     const formData = new FormData();
-    formData.Uploadend("file", file);
-    
-    // menggunakan XMLHttpRequest untuk mendapatkan event progress
-    xhr.open("PUT", URL_UPLOAD, true);
+    formData.append("file", file);
 
-    // event listener untuk progress upload
+    xhr.open("PUT", import.meta.env.VITE_API_URL + "/", true);
     xhr.upload.onprogress = function (e) {
       if (e.lengthComputable) {
         const percentComplete = Math.round((e.loaded / e.total) * 100);
@@ -50,7 +45,7 @@ const Upload =()=> {
         setFileName(`<b>Choose file</b> or drag it here`);
         setIsSubmitting(false);
         setSize(0);
-        setUploadProgress(0); // reset persentase upload
+        setUploadProgress(0); 
         toast.success(fileName + " Successfully uploaded!", {
           duration : 3000,
           style: {
@@ -73,8 +68,7 @@ const Upload =()=> {
     setSize(event.target.files[0].size);
     setFileName(event.target.files[0].name);
 
-    const typeUrl = "https://r2api.rezultroy.workers.dev/file/mime"
-    xhr.open("POST",typeUrl,true)
+    xhr.open("POST",import.meta.env.VITE_API_URL + "/file/mime",true)
     xhr.onloadend = function () {
       if(xhr.status == 200){
         const type = JSON.parse(xhr.response)
@@ -83,11 +77,11 @@ const Upload =()=> {
       }
     }
 
-    const req={
+    const mime={
       "mime" : event.target.files[0].type
     }
 
-    xhr.send(JSON.stringify(req))
+    xhr.send(JSON.stringify(mime))
   };
 
   const handleDragOver = (event) =>{

@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     },
   },
   {
-    path: "/download",
+    path: "/download/*",
     async lazy() {
       let download = await import("../pages/download");
       return { Component: download.default };
