@@ -4,6 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { router } from './utils/router';
+import './utils/config.js'
 import { ReCaptchaProvider } from 'react-grecaptcha-v3';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
