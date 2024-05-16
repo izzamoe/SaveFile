@@ -4,8 +4,20 @@ import lines from '../assets/lines.svg'
 import file from '../assets/file.svg'
 import up from '../assets/up.svg'
 import '../style/download.css'
+import { useSkipInjectionDelay } from 'react-grecaptcha-v3'
 
 const Download = () =>{
+
+    const forceLoad = useSkipInjectionDelay()
+
+    const handleSubmit = () =>{
+        onVerify();
+    }
+
+    const onVerify = () =>{
+        forceLoad()
+    }
+
     return (
         <div className='download-container'>
             <img id='circle' src={circle} alt="circle" />
@@ -27,7 +39,7 @@ const Download = () =>{
                         Download
                     </button>
                 </div>
-                <button className="upload-btn">
+                <button onSubmit={handleSubmit} className="upload-btn">
                     <img src={up} alt="upload" id="up" />
                     Upload More
                 </button>

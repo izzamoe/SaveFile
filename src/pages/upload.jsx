@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import banner from "../assets/banner.avif";
 import "../home.css";
 import { displayIcon } from "../component/FileIcon";
@@ -9,6 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import element from '../assets/element.svg';
 import open from '../assets/open.svg';
 import drop from '../assets/drop.svg';
+import { useSkipInjectionDelay } from "react-grecaptcha-v3";
 
 const Upload =()=> {
   const [file, setFile] = useState(null);
@@ -21,8 +22,10 @@ const Upload =()=> {
   const [size,setSize] = useState(0)
   const [type,setType] = useState(null)
   const xhr = new XMLHttpRequest();
+  const forceLoad = useSkipInjectionDelay();
 
   const handleSubmit = (event) => {
+    onVerify();
     event.preventDefault();
     setFileName("Uploading");
     setIsSubmitting(true);
@@ -60,6 +63,10 @@ const Upload =()=> {
 
     xhr.send(formData);
   };
+
+  const onVerify = useCallback(()=>{
+    forceLoad();
+  })
 
   const handleFileChange = (event) => {
     setIsEmpty(false);
@@ -118,6 +125,8 @@ const Upload =()=> {
 
     return finalSize + ' ' + units[unitIndex];
 }
+
+
 
   return (
     <>
