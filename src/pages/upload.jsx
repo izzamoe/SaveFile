@@ -1,5 +1,5 @@
 import { useState } from "react";
-import banner from "../assets/banner.png";
+import banner from "../assets/banner.avif";
 import "../home.css";
 import { displayIcon } from "../component/FileIcon";
 import up from "../assets/up.svg";
