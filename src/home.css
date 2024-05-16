@@ -1,12 +1,14 @@
 
 @font-face{
     font-family: "RubikReg";
+    font-display: auto;
     src:local("RubikRegular"),
     url('./assets/fonts/RubikRegular.ttf') 
 }
 
 @font-face{
     font-family: "RubikBld";
+    font-display: auto;
     src:local("RubikBold"),
     url('./assets/fonts/RubikBold.ttf') 
 }
@@ -21,7 +23,7 @@
 
 
 
-p{
+p{  
     font-family: "RubikReg";
     margin: 10px;
     word-break: break-all;
