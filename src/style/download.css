@@ -88,6 +88,10 @@
     border: 1.5px solid transparent;
 }
 
+.grecaptcha-badge { 
+    visibility: hidden;
+}
+
 .upload-btn{
     cursor: pointer;
     border-radius: 0.5rem;

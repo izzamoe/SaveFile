@@ -114,6 +114,10 @@ body{
     margin-bottom: 0.5rem;
 }
 
+.grecaptcha-badge { 
+    visibility: hidden;
+}
+
 #upload:hover{
     color: #543FD3;
     background-color: #EEECFB;
