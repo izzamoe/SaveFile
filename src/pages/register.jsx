@@ -41,7 +41,7 @@ const Register = () => {
         });
       } else {
         const warn = JSON.parse(xhr.response);
-        toast.error("Register failed ! " + warn.message, {
+        toast.error(warn.message, {
           duration: 3000,
           style: {
             backgroundColor: "#D52727",
