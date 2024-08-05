@@ -1,3 +1,17 @@
+@font-face{
+    font-family: "RubikReg";
+    font-display: auto;
+    src:local("RubikRegular"),
+    url('../assets//fonts/RubikRegular.ttf') 
+}
+
+@font-face{
+    font-family: "RubikBld";
+    font-display: auto;
+    src:local("RubikBold"),
+    url('../assets/fonts/RubikBold.ttf') 
+}
+
 
 .download-container{
     position: relative;
@@ -12,14 +26,14 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 15%;
+    width: 10%;
 }
 
 #lines{
     top: 0;
     position: absolute;
     right: 0;
-    width: 25%;
+    width: 20%;
 }
 
 .file-container{
@@ -38,6 +52,7 @@
 
 .ready{
     font-size: 1.5rem;
+    font-family: "RubikReg"
 }
 
 .file{
@@ -68,6 +83,7 @@
 
 .file-info p{
     margin: 0;
+    font-family: "RubikReg"
 }
 
 .file-info p:nth-child(2){
