@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { isLogin } from "../utils/verif";
 const xhr = new XMLHttpRequest();
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  isLogin();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +19,7 @@ const Login = () => {
       if (xhr.status == 200) {
         const token = JSON.parse(xhr.response)
         localStorage.setItem("token",token.data.token)
+        navigate("/",{replace: true});
       } else {
         const warn = JSON.parse(xhr.response);
         toast.error(warn.message, {

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { isLogin } from "../utils/verif";
 const xhr = new XMLHttpRequest();
 
 const Register = () => {
@@ -9,6 +10,10 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    isLogin();
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +37,7 @@ const Register = () => {
     xhr.onloadend = function () {
       if (xhr.status == 200) {
         const msg = JSON.parse(xhr.response);
-        toast.success(msg.data.message, {
+        toast.success(msg.data.message + "Please Login", {
           duration: 3000,
           style: {
             backgroundColor: "#5240D4",
