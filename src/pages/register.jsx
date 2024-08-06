@@ -1,5 +1,6 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { replace, useNavigate } from "react-router-dom";
 const xhr = new XMLHttpRequest();
 
 const Register = () => {
@@ -7,6 +8,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,6 +41,7 @@ const Register = () => {
           },
           id: "success",
         });
+        navigate("/login",{replace : true})
       } else {
         const warn = JSON.parse(xhr.response);
         toast.error(warn.message, {
