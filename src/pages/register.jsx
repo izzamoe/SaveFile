@@ -11,9 +11,7 @@ const Register = () => {
   const [confirm, setConfirm] = useState("");
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    isLogin();
-  })
+  isLogin();
 
   const handleSubmit = (e) => {
     e.preventDefault();
